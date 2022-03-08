@@ -39,7 +39,7 @@ public class RegistaServiceImpl implements RegistaService {
 
 	@Override
 	public Regista caricaSingoloElemento(Long id) throws Exception {
-		
+
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
@@ -59,7 +59,7 @@ public class RegistaServiceImpl implements RegistaService {
 
 	@Override
 	public Regista caricaSingoloElementoConFilms(Long id) throws Exception {
-		
+
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
@@ -79,7 +79,7 @@ public class RegistaServiceImpl implements RegistaService {
 
 	@Override
 	public void aggiorna(Regista registaInstance) throws Exception {
-		
+
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
@@ -129,7 +129,7 @@ public class RegistaServiceImpl implements RegistaService {
 
 	@Override
 	public void rimuovi(Long id) throws Exception {
-		
+
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
@@ -140,7 +140,7 @@ public class RegistaServiceImpl implements RegistaService {
 			registaDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			registaDAO.delete(id);
+			registaDAO.delete(registaDAO.findOne(id));
 
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {

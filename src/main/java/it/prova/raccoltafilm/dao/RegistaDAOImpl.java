@@ -49,7 +49,7 @@ public class RegistaDAOImpl implements RegistaDAO {
 	}
 
 	@Override
-	public void delete(Long input) throws Exception {
+	public void delete(Regista input) throws Exception {
 		if (input == null) {
 			throw new Exception("Problema valore in input");
 		}

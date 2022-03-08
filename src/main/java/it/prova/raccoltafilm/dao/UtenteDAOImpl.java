@@ -1,10 +1,15 @@
 package it.prova.raccoltafilm.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+
+import org.apache.commons.lang3.StringUtils;
 
 import it.prova.raccoltafilm.model.Ruolo;
 import it.prova.raccoltafilm.model.StatoUtente;
@@ -48,14 +53,6 @@ public class UtenteDAOImpl implements UtenteDAO {
 		entityManager.persist(utenteInstance);
 	}
 
-	@Override
-	public void delete(Utente utenteInstance) throws Exception {
-		if (utenteInstance == null) {
-			throw new Exception("Problema valore in input");
-		}
-		entityManager.remove(entityManager.merge(utenteInstance));
-	}
-
 	// questo metodo ci torna utile per capire se possiamo rimuovere un ruolo non
 	// essendo collegato ad un utente
 	public List<Utente> findAllByRuolo(Ruolo ruoloInput) {
@@ -84,6 +81,51 @@ public class UtenteDAOImpl implements UtenteDAO {
 		query.setParameter("password", password);
 		query.setParameter("statoUtente", StatoUtente.ATTIVO);
 		return query.getResultStream().findFirst();
+	}
+
+	@Override
+	public List<Utente> findByExample(Utente input) {
+
+		Map<String, Object> paramaterMap = new HashMap<String, Object>();
+		List<String> whereClauses = new ArrayList<String>();
+
+		StringBuilder queryBuilder = new StringBuilder("select u from Utente u where u.id = u.id ");
+
+		if (StringUtils.isNotEmpty(input.getNome())) {
+			whereClauses.add(" u.nome  like :nome ");
+			paramaterMap.put("nome", "%" + input.getNome() + "%");
+		}
+		if (StringUtils.isNotEmpty(input.getCognome())) {
+			whereClauses.add(" u.cognome like :cognome ");
+			paramaterMap.put("cognome", "%" + input.getCognome() + "%");
+		}
+		if (StringUtils.isNotEmpty(input.getUsername())) {
+			whereClauses.add(" u.username like :username ");
+			paramaterMap.put("username", "%" + input.getUsername() + "%");
+		}
+
+		if (input.getDateCreated() != null) {
+			whereClauses.add("u.dateCreated >= :dateCreated ");
+			paramaterMap.put("dateCreated", input.getDateCreated());
+		}
+
+		queryBuilder.append(!whereClauses.isEmpty() ? " and " : "");
+		queryBuilder.append(StringUtils.join(whereClauses, " and "));
+		TypedQuery<Utente> typedQuery = entityManager.createQuery(queryBuilder.toString(), Utente.class);
+
+		for (String key : paramaterMap.keySet()) {
+			typedQuery.setParameter(key, paramaterMap.get(key));
+		}
+
+		return typedQuery.getResultList();
+	}
+
+	@Override
+	public void delete(Utente input) throws Exception {
+		if (input == null) {
+			throw new Exception("Problema valore in input");
+		}
+		entityManager.remove(entityManager.merge(input));
 	}
 
 }

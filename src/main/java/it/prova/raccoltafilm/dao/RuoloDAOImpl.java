@@ -44,19 +44,18 @@ public class RuoloDAOImpl implements RuoloDAO {
 	}
 
 	@Override
-	public void delete(Ruolo ruoloInstance) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public Ruolo findByDescrizioneAndCodice(String descrizione, String codice) throws Exception {
 		TypedQuery<Ruolo> query = entityManager
 				.createQuery("select r from Ruolo r where r.descrizione=?1 and r.codice=?2", Ruolo.class)
-				.setParameter(1, descrizione)
-				.setParameter(2, codice);
-		
+				.setParameter(1, descrizione).setParameter(2, codice);
+
 		return query.getResultStream().findFirst().orElse(null);
+	}
+
+	@Override
+	public void delete(Ruolo input) throws Exception {
+		// TODO Auto-generated method stub
+
 	}
 
 }

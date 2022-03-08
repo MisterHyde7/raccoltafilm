@@ -10,6 +10,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import it.prova.raccoltafilm.model.Film;
 import it.prova.raccoltafilm.model.Regista;
 import it.prova.raccoltafilm.model.Sesso;
+import it.prova.raccoltafilm.model.Utente;
 
 public class UtilityForm {
 
@@ -17,7 +18,7 @@ public class UtilityForm {
 			String nickNameInputParam, String dataDiNascitaStringParam, String sessoParam) {
 
 		Regista result = new Regista(nomeInputParam, cognomeInputParam, nickNameInputParam);
-		result.setSesso(StringUtils.isBlank(sessoParam)?null:Sesso.valueOf(sessoParam));
+		result.setSesso(StringUtils.isBlank(sessoParam) ? null : Sesso.valueOf(sessoParam));
 		result.setDataDiNascita(parseDateArrivoFromString(dataDiNascitaStringParam));
 		return result;
 	}
@@ -26,14 +27,13 @@ public class UtilityForm {
 		// prima controlliamo che non siano vuoti i parametri
 		if (StringUtils.isBlank(registaToBeValidated.getNome())
 				|| StringUtils.isBlank(registaToBeValidated.getCognome())
-				|| StringUtils.isBlank(registaToBeValidated.getNickName()) 
-				|| registaToBeValidated.getSesso() == null
+				|| StringUtils.isBlank(registaToBeValidated.getNickName()) || registaToBeValidated.getSesso() == null
 				|| registaToBeValidated.getDataDiNascita() == null) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	public static Film createFilmFromParams(String titoloInputParam, String genereInputParam,
 			String minutiDurataInputParam, String dataPubblicazioneStringParam, String registaIdStringParam) {
 
@@ -50,13 +50,29 @@ public class UtilityForm {
 
 	public static boolean validateFilmBean(Film filmToBeValidated) {
 		// prima controlliamo che non siano vuoti i parametri
-		if (StringUtils.isBlank(filmToBeValidated.getTitolo())
-				|| StringUtils.isBlank(filmToBeValidated.getGenere())
-				|| filmToBeValidated.getMinutiDurata() == null 
-				|| filmToBeValidated.getMinutiDurata() < 1
-				|| filmToBeValidated.getRegista() == null
-				|| filmToBeValidated.getRegista().getId() == null 
+		if (StringUtils.isBlank(filmToBeValidated.getTitolo()) || StringUtils.isBlank(filmToBeValidated.getGenere())
+				|| filmToBeValidated.getMinutiDurata() == null || filmToBeValidated.getMinutiDurata() < 1
+				|| filmToBeValidated.getRegista() == null || filmToBeValidated.getRegista().getId() == null
 				|| filmToBeValidated.getRegista().getId() < 1) {
+			return false;
+		}
+		return true;
+	}
+
+	public static Utente createUtenteFromParams(String nomeInputParam, String cognomeInputParam,
+			String userNameInputParam, String dataCreazioneStringParam) {
+
+		Utente result = new Utente(nomeInputParam, cognomeInputParam, userNameInputParam);
+		result.setDateCreated(parseDateArrivoFromString(dataCreazioneStringParam));
+		return result;
+	}
+
+	public static boolean validateUtenteBean(Utente utenteToBeValidated) {
+		// prima controlliamo che non siano vuoti i parametri
+		if (StringUtils.isBlank(utenteToBeValidated.getNome()) 
+				|| StringUtils.isBlank(utenteToBeValidated.getCognome())
+				|| StringUtils.isBlank(utenteToBeValidated.getUsername())
+				|| utenteToBeValidated.getDateCreated() == null) {
 			return false;
 		}
 		return true;

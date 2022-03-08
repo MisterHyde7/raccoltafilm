@@ -14,7 +14,7 @@ public interface IBaseDAO<T> {
 
 	public void insert(T input) throws Exception;
 
-	public void delete(Long input) throws Exception;
+	public void delete(T input) throws Exception;
 
 	// questo mi serve per l'injection
 	public void setEntityManager(EntityManager entityManager);

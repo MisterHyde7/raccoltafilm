@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <header>
   <!-- Fixed navbar -->
  <nav class="navbar navbar-expand-lg navbar-dark bg-primary" aria-label="Eighth navbar example">
@@ -25,6 +26,9 @@
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareInsertRegistaServlet">Inserisci Regista</a></li>
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareSearchFilmServlet">Ricerca Film</a></li>
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareInsertFilmServlet">Inserisci Film</a></li>
+              <c:if test="${userInfo.isAdmin()}">
+              	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/utenti/PrepareSearchUtenteServlet">Ricerca Utenti</a></li>
+              </c:if>
             </ul> 
           </li>   
         </ul>

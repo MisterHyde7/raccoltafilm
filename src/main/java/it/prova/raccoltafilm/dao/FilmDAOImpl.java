@@ -50,15 +50,6 @@ public class FilmDAOImpl implements FilmDAO {
 	}
 
 	@Override
-	public void delete(Film filmInstance) throws Exception {
-		if (filmInstance == null) {
-			throw new Exception("Problema valore in input");
-		}
-		entityManager.remove(entityManager.merge(filmInstance));
-
-	}
-
-	@Override
 	public Optional<Film> findOneEager(Long id) throws Exception {
 		return entityManager.createQuery("from Film f left join fetch f.regista where f.id=:idFilm", Film.class)
 				.setParameter("idFilm", id).getResultList().stream().findFirst();
@@ -104,6 +95,14 @@ public class FilmDAOImpl implements FilmDAO {
 		}
 
 		return typedQuery.getResultList();
+	}
+
+	@Override
+	public void delete(Film input) throws Exception {
+		if (input == null) {
+			throw new Exception("Problema valore in input");
+		}
+		entityManager.remove(entityManager.merge(input));
 	}
 
 }
