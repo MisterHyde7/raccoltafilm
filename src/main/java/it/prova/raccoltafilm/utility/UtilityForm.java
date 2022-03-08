@@ -77,6 +77,13 @@ public class UtilityForm {
 		}
 		return true;
 	}
+	
+	public static Utente createUtenteFromParams(String nomeInputParam, String cognomeInputParam,
+			String userNameInputParam, String passwordParam, Date dataCreazione) {
+
+		Utente result = new Utente(nomeInputParam, cognomeInputParam, userNameInputParam, passwordParam, dataCreazione);
+		return result;
+	}
 
 	public static Date parseDateArrivoFromString(String dataDiNascitaStringParam) {
 		if (StringUtils.isBlank(dataDiNascitaStringParam))
