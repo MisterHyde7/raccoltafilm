@@ -68,7 +68,7 @@
 								Ruolo:
 									<c:forEach items="${listaRuoli}" var="ruolo">
 										<div class="form-check">
-										  <input class="form-check-input" type="checkbox" value="${ruolo.id}" id="${ruolo.codice }" name="ruoli">
+										  <input class="form-check-input" type="checkbox" value="${ruolo.id}" id="${ruolo.codice }" name="ruoli" <c:if test="${false}">checked</c:if>>
 										  <label class="form-check-label" for="${ruolo.codice }">
 										  	${ruolo.descrizione}
 										  </label>
