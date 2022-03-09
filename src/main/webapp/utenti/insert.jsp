@@ -64,16 +64,16 @@
 									<input type="password" class="form-control" name="password" id="password" placeholder="Inserire la password" value="${insert_utente_attr.password }" required>
 								</div>
 								
-								<div class="col-md-6">
-								Ruolo:
-									<c:forEach items="${listaRuoli}" var="ruolo">
+								<div class="col-md-6 form-check">
+									<p>Ruoli:</p>
+									<c:forEach items="${mappaRuoliConSelezionati_attr}" var="ruoloEntry">
 										<div class="form-check">
-										  <input class="form-check-input" type="checkbox" value="${ruolo.id}" id="${ruolo.codice }" name="ruoli" <c:if test="${false}">checked</c:if>>
-										  <label class="form-check-label" for="${ruolo.codice }">
-										  	${ruolo.descrizione}
-										  </label>
+											  <input class="form-check-input" name="ruoloInput" type="checkbox" value="${ruoloEntry.key.id}" id="ruoloInput-${ruoloEntry.key.id}" ${ruoloEntry.value?'checked':'' }>
+											  <label class="form-check-label" for="ruoloInput-${ruoloEntry.key.id}" >
+											    ${ruoloEntry.key.codice}
+											  </label>
 										</div>
-									</c:forEach>
+								  	</c:forEach>
 								</div>
 								
 							<div class="col-12">
