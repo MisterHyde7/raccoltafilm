@@ -59,8 +59,8 @@
 										<tr>
 											<td>${utenteItem.nome }</td>
 											<td>${utenteItem.cognome }</td>
-											<td>${utenteItem.username }</td>
-											<td><fmt:formatDate type = "date" value = "${utenteItem.dateCreated }" /></td>
+											<td>${utenteItem.username}</td>
+											<td><fmt:formatDate type = "date" value = "${utenteItem.dateCreated}" /></td>
 											<td>
 												<a class="btn  btn-sm btn-outline-secondary" href="ExecuteVisualizzaUtenteServlet?idUtente=${utenteItem.id }">Visualizza</a>
 												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="PrepareEditUtenteServlet?idUtente=${utenteItem.id }">Edit</a>
